@@ -5,164 +5,166 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
+namespace ConsoleApp1
 
-class RamRamji
 {
-    public RamRamji(string note, int dist)
+
+    class RamRamji
     {
-        villageName = note; distanceTraveled = dist;
-        HowFarToGetBack = distanceTraveled;
-    }
-    public int HowFarToGetBack = 0;
-    private string villageName;
-    private int distanceTraveled;
-    public int getDistanceWalked() { return distanceTraveled; }
-    public string getVillageName() { return villageName; }
-}
-
-
-
-class RorBahi
-{
-    private static RamRamji jR;
-    public static bool FoundAstrilde = false;
-
-    public static List<Jhajj> HugiJournal = new List<Jhajj>();
-
-    public static int CalculateDistanceWalked()
-    {
-        int DistanceWalked = 0;
-        // walk over the List and add the distances
-        foreach (var je in HugiJournal)
+        public RamRamji(string note, int dist)
         {
-            //Console.ReadLine();
-            Console.WriteLine(" {0}  --   {1} *** --- {2} ", je.getDistanceWalked(), je.getVillageName(), je.HowFarToGetBack);
-            DistanceWalked += je.getDistanceWalked() + je.HowFarToGetBack;
+            villageName = note; distanceTraveled = dist;
+            HowFarToGetBack = distanceTraveled;
         }
-        return DistanceWalked;
-    }
-}
-
-class CountrySide
-{
-
-    /* 
-     * 
-     */
-    static void Main()
-    {
-        CountrySide a = new CountrySide();
-        a.Run();
+        public int HowFarToGetBack = 0;
+        private string villageName;
+        private int distanceTraveled;
+        public int getDistanceWalked() { return distanceTraveled; }
+        public string getVillageName() { return villageName; }
     }
 
-    // Create the LinkedList to reflect the Map in the PowerPoint Instructions
-    Village Maeland;
-    Village Helmholtz;
-    Village Alst;
-    Village Wessig;
-    Village Badden;
-    Village Uster;
-    Village Schvenig;
 
-    public void TraverseVillages(Village CurrentVillage)
+
+    class RorBahi
     {
-        if (jyot.FoundAstrilde) return;
+        private static RamRamji ramRamji;
+        public static bool FoundAstrilde = false;
 
+        public static List<RamRamji> HugiJournal = new List<RamRamji>();
 
-        jyot.HugiJournal.Add(new Jhajj(CurrentVillage.VillageName, CurrentVillage.distanceFromPreviousVillage));
-        try
+        public static int CalculateDistanceWalked()
         {
-
-            //Console.ReadLine();
-            Console.WriteLine("I am in {0}", CurrentVillage.VillageName);
-
-            if (CurrentVillage.isAstrildgeHere)
+            int DistanceWalked = 0;
+          
+            foreach (var je in HugiJournal)
             {
-                //Console.ReadLine();
-                Console.WriteLine("I found Dear Astrildge in {0}", CurrentVillage.VillageName);
-                Console.WriteLine("******* FEELING HAPPY!!! *******");
-                Console.WriteLine("Astrilde, I walked {0} vika to find you. Will you marry me?", jyot.CalculateDistanceWalked());
-                jyot.FoundAstrilde = true;
+              
+                Console.WriteLine(" {0}  --   {1} *** --- {2} ", je.getDistanceWalked(), je.getVillageName(), je.HowFarToGetBack);
+                DistanceWalked += je.getDistanceWalked() + je.HowFarToGetBack;
             }
-            TraverseVillages(CurrentVillage.west);
-            TraverseVillages(CurrentVillage.east);
+            return DistanceWalked;
+        }
+    }
+
+    class CountrySide
+    {
+
+       
+        static void Main()
+        {
+            CountrySide a = new CountrySide();
+            a.Run();
+        }
+
+        
+        Village Maeland;
+        Village Helmholtz;
+        Village Alst;
+        Village Wessig;
+        Village Badden;
+        Village Uster;
+        Village Schvenig;
+
+        public void TraverseVillages(Village CurrentVillage)
+        {
+            if (RorBahi.FoundAstrilde) return;
+
+
+            RorBahi.HugiJournal.Add(new RamRamji(CurrentVillage.VillageName, CurrentVillage.distanceFromPreviousVillage));
+            try
+            {
+
+             
+                Console.WriteLine("I am in {0}", CurrentVillage.VillageName);
+
+                if (CurrentVillage.isAstrildgeHere)
+                {
+                    
+                    Console.WriteLine("I found Dear Astrildge in {0}", CurrentVillage.VillageName);
+                    Console.WriteLine("******* FEELING HAPPY!!! *******");
+                    Console.WriteLine("Astrilde, I walked {0} vika to find you. Will you marry me?", RorBahi.CalculateDistanceWalked());
+                    RorBahi.FoundAstrilde = true;
+                }
+                TraverseVillages(CurrentVillage.west);
+                TraverseVillages(CurrentVillage.east);
+
+
+            }
+            catch (NullReferenceException) { }
+
+
+
 
 
         }
-        catch (NullReferenceException) { }
 
-
-
-
-
-    }
-
-    public void Run()
-    {
-        Alst = new Village("Alst", false);
-        Schvenig = new Village("Schvenig", false);
-        Wessig = new Village("Wessig", false);
-        Maeland = new Village("Maeland", false);
-        Helmholtz = new Village("helmholtz", false);
-        Uster = new Village("Uster", false);
-        Badden = new Village("Badden", true);
-
-        Alst.VillageSetup(0, Schvenig, Wessig);
-        Schvenig.VillageSetup(14, Maeland, Helmholtz);
-        Maeland.VillageSetup(9, null, Helmholtz);
-        Helmholtz.VillageSetup(28, null, null);
-        Wessig.VillageSetup(19, Uster, Badden);
-        Uster.VillageSetup(28, null, null);
-        Badden.VillageSetup(11, null, null);
-
-        this.TraverseVillages(Alst);
-        this.Announcement();
-    }
-
-    public void Announcement()
-    {
-        try
+        public void Run()
         {
+            Alst = new Village("Alst", false);
+            Schvenig = new Village("Schvenig", false);
+            Wessig = new Village("Wessig", false);
+            Maeland = new Village("Maeland", false);
+            Helmholtz = new Village("helmholtz", false);
+            Uster = new Village("Uster", true);
+            Badden = new Village("Badden", false);
 
-            using (StreamReader sr = new StreamReader("U:/Users/707193/assignment1/assignment 1/announcement.txt"))
+            Alst.VillageSetup(0, Schvenig, Wessig);
+            Schvenig.VillageSetup(14, Maeland, Helmholtz);
+            Maeland.VillageSetup(9, null, Helmholtz);
+            Helmholtz.VillageSetup(28, null, null);
+            Wessig.VillageSetup(19, Uster, Badden);
+            Uster.VillageSetup(28, null, null);
+            Badden.VillageSetup(11, null, null);
+
+            this.TraverseVillages(Alst);
+            this.Announcement();
+        }
+
+        public void Announcement()
+        {
+            try
             {
-                string line;
 
-
-                while ((line = sr.ReadLine()) != null)
+                using (StreamReader sr = new StreamReader("U:/Users/732156/announcement.txt"))
                 {
-                    Console.WriteLine(line);
+                    string line;
+
+
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
         }
-        catch (Exception e)
+    }
+
+    class Village
+    {
+
+
+        public Village(string _villageName, bool _isAHere)
         {
-            //Console.ReadLine();
-            Console.WriteLine("The file could not be read:");
-            Console.WriteLine(e.Message);
+            isAstrildgeHere = _isAHere;
+            VillageName = _villageName;
         }
+        public void VillageSetup(int _prevVillageDist, Village _westVillage, Village _eastVillage)
+        {
+            east = _eastVillage;
+            west = _westVillage;
+            distanceFromPreviousVillage = _prevVillageDist;
+        }
+
+        public Village west;
+        public Village east;
+        public string VillageName;
+        public int distanceFromPreviousVillage;
+        public bool isAstrildgeHere;
     }
-}
-
-class Village
-{
-
-
-    public Village(string _villageName, bool _isAHere)
-    {
-        isAstrildgeHere = _isAHere;
-        VillageName = _villageName;
-    }
-    public void VillageSetup(int _prevVillageDist, Village _westVillage, Village _eastVillage)
-    {
-        east = _eastVillage;
-        west = _westVillage;
-        distanceFromPreviousVillage = _prevVillageDist;
-    }
-
-    public Village west;
-    public Village east;
-    public string VillageName;
-    public int distanceFromPreviousVillage;
-    public bool isAstrildgeHere;
 }
